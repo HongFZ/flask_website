@@ -1,0 +1,206 @@
+{% from "_macros.html" import static %}
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <title>登录</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Ruda:400,900,700" rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="{{ url_for('static',filename='lib/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="{{ url_for('static',filename='lib/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static',filename='lib/prettyphoto/css/prettyphoto.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static',filename='lib/hover/hoverex-all.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static',filename='lib/jetmenu/jetmenu.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static',filename='lib/owl-carousel/owl-carousel.css') }}" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="{{ url_for('static',filename='css/style.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/colors/red.css') }}">
+  
+</head>
+
+<body>
+  <div class="topbar clearfix">
+    <div class="container">
+      <div class="col-lg-12 text-right">
+        <div style="height: 25px;"></div>
+      </div>
+    </div>
+    <!-- end container -->
+  </div>
+  <!-- end topbar -->
+
+  <header class="header">
+    <div class="container">
+      <div class="site-header clearfix">
+        <div class="col-lg-3 col-md-3 col-sm-12 title-area">
+          <div class="site-title" id="title">
+            <a href="{{ url_for('index') }}" title="">
+              <h4>SUFE Online Judge</h4>
+            </a>
+          </div>
+        </div>
+        <!-- title area -->
+        <div class="col-lg-9 col-md-12 col-sm-12">
+          <div id="nav" class="right">
+            <div class="container clearfix">
+              <ul id="jetmenu" class="jetmenu blue">
+                <li ><a href="{{ url_for('index') }}">返回首页</a>
+                </li>
+                
+              </ul>
+            </div>
+          </div>
+          <!-- nav -->
+        </div>
+        <!-- title area -->
+      </div>
+      <!-- site header -->
+    </div>
+    <!-- end container -->
+  </header>
+  <!-- end header -->
+
+  <section id="intro">
+    <div class="container">
+      <div class="ror">
+        <div class="col-md-8 col-md-offset-2">
+          <h1>教学管理平台</h1>
+          <p>Shanghai University of Finance and Economics Online Judge Platform</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end post-wrapper-top -->
+
+  <section class="section1">
+    <div class="container clearfix">
+      <div class="content col-lg-12 col-md-12 col-sm-12 clearfix">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <h4 class="title">
+              欢迎使用 SUFE Online Judge !
+          </h4>
+          <p class="withpadding">请用ID与密码注册后登录</p>
+          <a href="{{ url_for('register') }}">新用户注册</a>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <h4 class="title"><span>登录</span></h4>
+          <form id="loginform" method="post" name="loginform" action="">
+            <div class="form-group">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <input type="email" class="form-control" placeholder="邮箱" name="email">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                <input type="password" class="form-control" placeholder="密码" name="password">
+              </div>
+            </div>
+            <!-- <div class="form-group">
+              <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-check-square"></i></span>
+                  <input type="text" class="form-control" name="graph_captcha" placeholder="图形验证码">
+                  <span class="input-group-addon captcha-addon">
+                      <img id="captcha-img" class="captcha-img" src="{{ url_for('graph_captcha') }}" alt="">
+                  </span>
+              </div>
+          </div> -->
+            <div class="form-group">
+              <div class="checkbox">
+                <label>
+									<input type="checkbox" name="remember" value="1"> 记住我
+								</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="button" name="login">登录</button>
+            </div>
+          </form>
+          {% if message %}
+              <p class="text-danger">{{ message }}</p>
+          {% endif %}
+        </div>
+        <!-- end login -->
+      </div>
+      <!-- end content -->
+    </div>
+    <!-- end container -->
+  </section>
+  <!-- end section -->
+  
+
+  <div class="clearfix"></div>
+  <div class="divider"></div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="widget col-lg-3 col-md-3 col-sm-12">
+        <h4 class="title">OJ 首页</h4>
+        <a class="button small" href="#">前往</a>
+      </div>
+      <!-- end widget -->
+      <div class="widget col-lg-3 col-md-3 col-sm-12">
+        <h4 class="title">上财门户</h4>
+        <a class="button small" href="#">前往</a>
+      </div>
+      <!-- end widget -->
+      <div class="widget col-lg-3 col-md-3 col-sm-12">
+        <h4 class="title">上财教学网</h4>
+        <a class="button small" href="#">前往</a>
+        <!-- contact_details -->
+      </div>
+      <!-- end widget -->
+      <div class="widget col-lg-3 col-md-3 col-sm-12">
+        <h4 class="title">意见反馈</h4>
+        <<a class="button small" href="#">前往</a>
+      </div>
+      <!-- end widget -->
+    </div>
+    <!-- end container -->
+
+    <div class="copyrights">
+      <div class="container">
+        <div class="col-lg-6 col-md-6 col-sm-12 columns footer-left">
+          <p>Copyright © 2020 - All rights reserved.</p>
+          <div class="credits">
+            <a href="http://www.shufe.edu.com/" target="_blank" title="上海财经大学">上海财经大学</a> 
+          </div>
+        </div>
+        <!-- end widget -->
+      </div>
+      <!-- end container -->
+    </div>
+    <!-- end copyrights -->
+  </footer>
+  <!-- end footer -->
+  <div class="dmtop">Scroll to Top</div>
+
+  <!-- JavaScript Libraries -->
+  <script src="{{ url_for('static',filename='lib/jquery/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static',filename='lib/bootstrap/js/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static',filename='lib/php-mail-form/validate.js') }}"></script>
+  <script src="{{ url_for('static',filename='lib/prettyphoto/js/prettyphoto.js') }}"></script>
+  <script src="{{ url_for('static',filename='lib/isotope/isotope.min.js') }}"></script>
+  <script src="{{ url_for('static',filename='lib/hover/hoverdir.js') }}"></script>
+  <script src="{{ url_for('static',filename='lib/hover/hoverex.min.js') }}"></script>
+  <script src="{{ url_for('static',filename='lib/unveil-effects/unveil-effects.js') }}"></script>
+  <script src="{{ url_for('static',filename='lib/owl-carousel/owl-carousel.js') }}"></script>
+  <script src="{{ url_for('static',filename='lib/jetmenu/jetmenu.js') }}"></script>
+  <script src="{{ url_for('static',filename='lib/animate-enhanced/animate-enhanced.min.js') }}"></script>
+  <script src="{{ url_for('static',filename='lib/jigowatt/jigowatt.js') }}"></script>
+  <script src="{{ url_for('static',filename='lib/easypiechart/easypiechart.min.js') }}"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="{{ url_for('static',filename='js/main.js') }}"></script>
+
+</body>
+</html>

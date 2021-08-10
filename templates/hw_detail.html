@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% from "_macros.html" import static %}
+
+{% block title %}
+    作业详情
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ static('css/front_pdetail.css') }}">
+{% endblock %}
+
+
+{% block categaory -%}
+    作业管理
+{%- endblock %}
+
+{% block page_head -%} 
+    作业详情
+{%- endblock %}
+
+{% block content %}
+    <div class="top-box">
+        <button class="btn btn-warning btn-s add-prob-btn" data-toggle="modal" data-target="#banner-dialog">添加题目</button>
+    </div>
+    <div class="lg-container">
+        <div class="post-container">
+            <h2>{{ hw.name }}</h2>
+            <p class="post-info-group">
+                <span>截止日期：{{ hw.ddl }}</span>
+            </p>
+            
+            {% for p in hwprob %}
+                <table class="table table-striped" data-effect="fade">
+                  <tbody>
+                    <tr data-hwprob="{{ p.id }}">
+                      <td><a href="{{ url_for('homework', hwprob_id=p.id)}}">{{ p.prob.title }}</a></td>
+                      <td>
+                        <button class="btn btn-danger btn-xs delete-hwprob-btn">删除</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                {% endfor %}
+            <article class="post-content" id="post-content" value="{{ hw.id }}">
+                {{ hw.content|safe }}
+            </article>
+        </div>
+    </div>
+    
+     <!-- Modal -->
+<div class="modal fade" id="banner-dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">选择题目</h4>
+        </div>
+        <div class="modal-body">
+            <form action="" class="form-horizontal">
+              <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon">题目</span>
+                    <select name="prob_id" class="form-control">
+                        {% for prob in probs %}
+                            <option value="{{ prob.prob_id }}">{{ prob.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <input type="hidden" name="hw_id" value="{{ hw.id }}">
+            </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+          <button type="button" class="btn btn-primary" id="save-class-btn">保存</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+{% endblock %}
+
+{% block base %}
+<script src="{{ static('js/hw_detail.js') }}"> </script>
+{% endblock %}

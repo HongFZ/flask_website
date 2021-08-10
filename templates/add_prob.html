@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% from "_macros.html" import static %}
+
+{% block title -%}
+    添加题目
+{%- endblock %}
+
+{% block head %}
+   
+{% endblock %}
+
+{% block categaory -%}
+    题库管理
+{%- endblock %}
+
+{% block page_head -%} 
+    添加题目
+{%- endblock %}
+
+{% block content %}
+<form action="" method="post">
+  <div class="form-group">
+      <div class="input-group">
+          <span class="input-group-addon">标题</span>
+          <input type="text" class="form-control" name="title">
+      </div>
+  </div>
+  <div class="form-group">
+      <div class="input-group">
+          <span class="input-group-addon">课程</span>
+          <select name="course_id" class="form-control">
+              {% for course in courses %}
+                  <option value="{{ course.course_id }}">{{ course.course_name }}</option>
+              {% endfor %}
+
+          </select>
+      </div>
+  </div>
+  <div class="form-group">
+      <script id="editor" type="text/plain" style="height:500px;"></script>
+  </div>
+  <div class="form-group">
+      <button class="btn btn-danger" id="submit-btn">添加至个人题库</button>
+  </div>
+</form>
+{% endblock %}
+
+
+{% block base %}
+<script src="{{ static('ueditor/ueditor.config.js') }}"></script>
+<script src="{{ static('ueditor/ueditor.all.min.js') }}"></script>
+<script src="{{ static('js/add_prob.js') }}"></script>
+{% endblock %}

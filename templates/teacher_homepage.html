@@ -1,0 +1,207 @@
+{% from "_macros.html" import static %}
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>教师主页</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Ruda:400,900,700" rel="stylesheet">
+  <!-- Bootstrap CSS File -->
+  <link href="{{ static('lib/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+  <!-- Libraries CSS Files -->
+  <link href="{{ static('lib/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+  <link href="{{ static('lib/prettyphoto/css/prettyphoto.css') }}" rel="stylesheet">
+  <link href="{{ static('lib/hover/hoverex-all.css') }}" rel="stylesheet">
+  <link href="{{ static('lib/jetmenu/jetmenu.css') }}" rel="stylesheet">
+  <link href="{{ static('lib/owl-carousel/owl-carousel.css') }}" rel="stylesheet">
+  <!-- Main Stylesheet File -->
+  <link href="{{ static('css/style.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="{{ static('css/colors/red.css') }}">
+  <link rel="stylesheet" href="{{ static('css/sweetalert.css') }}">
+</head>
+
+<body>
+  <div class="topbar clearfix">
+    <div class="container">
+      <div class="col-lg-12 text-right">
+        <div style="height: 25px;"></div>
+      </div>
+    </div>
+    <!-- end container -->
+  </div>
+  <!-- end topbar -->
+
+  <header class="header">
+    <div class="container">
+      <div class="site-header clearfix">
+        <div class="col-lg-3 col-md-3 col-sm-12 title-area">
+          <div class="site-title" id="title">
+            <a href="index.html" title="">
+              <h4>SUFE Online Judge</h4>
+            </a>
+          </div>
+        </div>
+        <!-- title area -->
+        <div class="col-lg-9 col-md-12 col-sm-12">
+          <div id="nav" class="right">
+            <div class="container clearfix">
+              <ul id="jetmenu" class="jetmenu blue">
+                <li class="active"><a href="{{ url_for('teacher_homepage') }}">教师主页</a>
+                </li>
+                <li><a href="#">题库管理</a>
+                  <ul class="dropdown">
+                    <li><a href="{{ url_for('person_prob_list') }}">题目列表</a></li>
+                    <li><a href="{{ url_for('add_prob') }}">添加题目</a></li>
+                  </ul>
+                </li>
+                <li><a href="#">作业管理</a>
+                  <ul class="dropdown">
+                    <li><a href="{{ url_for('course_list') }}">创建作业</a></li>
+                    <li><a href="{{ url_for('hw_list') }}">作业反馈</a></li>
+                  </ul>
+                </li>
+                <li><a href="#">个人设置</a>
+                  <ul class="dropdown">
+                    <li><a href="{{ url_for('person_info') }}">个人信息</a></li>
+                    <li><a href="{{ url_for('logout') }}">注销</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- nav -->
+        </div>
+        <!-- title area -->
+      </div>
+      <!-- site header -->
+    </div>
+    <!-- end container -->
+  </header>
+  <!-- end header -->
+
+  <section id="intro">
+    <div class="container">
+      <div class="ror">
+        <div class="col-md-8 col-md-offset-2">
+          <h1>教学管理平台</h1>
+          <p>Shanghai University of Finance and Economics Online Judge Platform</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section1">
+    <div class="container clearfix">
+      <div class="content col-lg-8 col-md-8 col-sm-8 col-xs-12 clearfix">
+        <div class="top-box">
+          <button class="btn btn-warning" id="add-class-btn" >添加课程</button>
+      </div>
+      <div class="divider"></div>
+      <table class="table table-bordered" data-effect="fade">
+          <thead>
+              <tr>
+                  <th>课程名称</th>
+                  <th>班级数量</th>
+                  <th>创建时间</th>
+                  <th>操作</th>
+              </tr>
+          </thead>
+          <tbody>
+            {% for c in courses %}
+              <tr data-name="{{ c.course_name }}" data-id="{{ c.course_id }}">
+                <td>{{ c.course_name }}</td>
+                <td><a href="{{ url_for('class_manage', course_id=c.course_id) }}">{{ c.classes|length }}</a></td>
+                <td>{{ c.create_time }}</td>
+                <td>
+                  <button class="btn btn-default btn-xs edit-class-btn">编辑</button>
+                  <button class="btn btn-danger btn-xs delete-class-btn">删除</button>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <div class="clearfix"></div>
+
+    
+      </div>
+      <!-- end content -->
+  </section>
+  <!-- end section 1 -->
+
+  <div class="clearfix"></div>
+  <div class="divider"></div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="widget col-lg-3 col-md-3 col-sm-12">
+        <h4 class="title">OJ 首页</h4>
+        <a class="button small" href="#">前往</a>
+      </div>
+      <!-- end widget -->
+      <div class="widget col-lg-3 col-md-3 col-sm-12">
+        <h4 class="title">全校题库</h4>
+        <a class="button small" href="{{ url_for('problem_list') }}">前往</a>
+      </div>
+      <!-- end widget -->
+      <div class="widget col-lg-3 col-md-3 col-sm-12">
+        <h4 class="title">上财教学网</h4>
+        <a class="button small" href="#">前往</a>
+        <!-- contact_details -->
+      </div>
+      <!-- end widget -->
+      <div class="widget col-lg-3 col-md-3 col-sm-12">
+        <h4 class="title">意见反馈</h4>
+        <<a class="button small" href="#">前往</a>
+      </div>
+      <!-- end widget -->
+    </div>
+    <!-- end container -->
+
+    <div class="copyrights">
+      <div class="container">
+        <div class="col-lg-6 col-md-6 col-sm-12 columns footer-left">
+          <p>Copyright © 2020 - All rights reserved.</p>
+          <div class="credits">
+            <a href="http://www.shufe.edu.com/" target="_blank" title="上海财经大学">上海财经大学</a> 
+          </div>
+        </div>
+        <!-- end widget -->
+      </div>
+      <!-- end container -->
+    </div>
+    <!-- end copyrights -->
+  </footer>
+  <!-- end footer -->
+  <div class="dmtop">Scroll to Top</div>
+
+  <!-- JavaScript Libraries -->
+  <script src="{{ static('lib/jquery/jquery.min.js') }}"></script>
+  <script src="{{ static('lib/bootstrap/js/bootstrap.min.js') }}"></script>
+  <script src="{{ static('lib/php-mail-form/validate.js') }}"></script>
+  <script src="{{ static('lib/prettyphoto/js/prettyphoto.js') }}"></script>
+  <script src="{{ static('lib/isotope/isotope.min.js') }}"></script>
+  <script src="{{ static('lib/hover/hoverex.min.js') }}lib/hover/hoverdir.js"></script>
+  <script src="{{ static('lib/bootstrap/css/bootstrap.min.css') }}"></script>
+  <script src="{{ static('lib/unveil-effects/unveil-effects.js') }}"></script>
+  <script src="{{ static('lib/owl-carousel/owl-carousel.js') }}"></script>
+  <script src="{{ static('lib/jetmenu/jetmenu.js') }}"></script>
+  <script src="{{ static('lib/animate-enhanced/animate-enhanced.min.js') }}"></script>
+  <script src="{{ static('lib/jigowatt/jigowatt.js') }}"></script>
+  <script src="{{ static('lib/easypiechart/easypiechart.min.js') }}"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="{{ static('lib/easypiechart/easypiechart.min.js') }}js/main.js"></script>
+  <script src="{{ static('lib/animate-enhanced/animate-enhanced.min.js') }}"></script>
+  <script src="{{ static('lib/jigowatt/jigowatt.js') }}"></script>
+  <script src="{{ static('lib/easypiechart/easypiechart.min.js') }}"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="{{ static('js/main.js') }}"></script>
+  <script src="{{ static('js/zlajax.js') }}"></script>
+  <script src="{{ static('js/zlalert.js') }}"></script>
+  <script src="{{ static('js/sweetalert.min.js') }}"></script>
+  <script src="{{ static('js/boards.js') }}"></script>
+</body>
+</html>

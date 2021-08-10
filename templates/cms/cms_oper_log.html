@@ -1,0 +1,36 @@
+{% extends "cms/cms_base.html" %}
+{% from "_macros.html" import static %}
+
+{% block title %}
+    操作日志
+{% endblock %}
+
+{% block head %}
+    
+{% endblock %}
+
+{% block page_title %}
+    {{ self.title() }}
+{% endblock %}
+
+{% block main_content %}
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>管理员</th>
+                <th>操作</th>
+                <th>操作时间</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for log in logs %}
+                <tr>
+                    <td>{{ log.adm.username }}</td>
+                    <td>{{ log.desc }}</td>
+                    <td>{{ log.operation_time }}</td>
+                </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+{% endblock %}

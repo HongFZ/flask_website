@@ -1,0 +1,63 @@
+{% extends 'cms/cms_base.html' %}
+% from "_macros.html" import static %}
+
+{% block title %}评论管理{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ static('lib/jetmenu/jetmenu.css') }}">
+    <script src="{{ static('lib/jetmenu/jetmenu.js') }}"></script>
+    <script src="{{ static('cms/js/comment.js') }}"></script>
+{% endblock %}
+
+{% block page_title %}
+    {{ self.title() }}
+{% endblock %}
+
+{% block main_content %}
+<ul id="jetmenu" class="jetmenu blue">
+    {% if current_sort == 1 %}
+        <li class="active"><a href="url_for('cms.comments')">全部</a></li>
+    {% else %}
+        <li><a href="{{ url_for('cms.comments') }}">全部</a></li>
+    {% endif %}
+    {% if current_sort == 2 %}
+        <li class="active"><a href="{{ url_for('cms.comments',st=1) }}">警告</a></li>
+    {% else %}
+        <li><a href="{{ url_for('cms.comments',st=1) }}">警告</a></li>
+    {% endif %}
+    {% if current_sort == 3 %}
+        <li class="active"><a href="{{ url_for('cms.comments',st=2) }}">被举报</a></li>
+    {% else %}
+        <li><a href="{{ url_for('cms.comments',st=2) }}">被举报</a></li>
+    {% endif %}
+    
+  </ul>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>用户</th>
+            <th>发布时间</th>
+            <th>题目</th>
+            <th>内容</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for c in comments %}
+            <tr data-id="{{ c.com_id }}" >
+                <td><a href="{{ url_for('cms.detail_comment',comment_id=c.com_id) }}">{{ c.author.realname }}</a></td>
+                <td>{{ c.create_time }}</td>
+                <td>{{ c.prob.title }}</td>
+                <td>{{ c.content[:25] }}...</td>
+                <td>
+                    <button class="btn btn-danger btn-xs delete-comment">移除</button>
+                </td>
+            </tr>
+        {% endfor %}
+
+    </tbody>
+</table>
+<div style="text-align:center;">
+    {{ pagination.links }}
+</div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% from "_macros.html" import static %}
+{% block title -%}
+添加作业
+{%- endblock %}
+
+
+{% block categaory -%}
+添加作业
+{%- endblock %}
+
+{% block page_head -%}
+选择班级
+{%- endblock %}
+
+{% block content %}
+
+<table class="table table-bordered" data-effect="fade">
+    <thead>
+        <tr>
+            <th>课程名称</th>
+            <th>班级数量</th>
+            <th>创建时间</th>
+        </tr>
+    </thead>
+    <tbody>
+      {% for c in courses %}
+        <tr data-name="{{ c.course_name }}" data-id="{{ c.course_id }}">
+          <td><a href="{{ url_for('add_hw', sc=c.course_id) }}">{{ c.course_name }}</a></td>
+          <td>{{ c.classes|length }}</td>
+          <td>{{ c.create_time }}</td>
+          
+        </tr>
+      {% endfor %}
+    </tbody>
+</table>
+
+
+
+{% endblock %}
+
+{% block base %}
+
+{% endblock %}

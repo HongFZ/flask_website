@@ -1,0 +1,36 @@
+{% extends 'cms/cms_base.html' %}
+
+{% block title %}
+    用户信息
+{% endblock %}
+
+{% block page_title %}
+    {{ self.title() }}
+{% endblock %}
+
+{% block main_content %}
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <td>用户名：</td>
+                <td>{{ student.realname }}</td>
+            </tr>
+            <tr>
+                <td>电话：</td>
+                <td>{{ student.telephone }}</td>
+            </tr>
+            <tr>
+                <td>邮箱：</td>
+                <td>{{ student.email }}</td>
+            </tr>
+            <tr>
+                <td>性别：</td>
+                <td>{{ student.gender }}</td>
+            </tr>
+            <tr>
+                <td>加入时间：</td>
+                <td>{{ student.join_time }}</td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}

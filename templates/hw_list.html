@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% from "_macros.html" import static %}
+{% block title -%}
+作业管理
+{%- endblock %}
+
+
+{% block categaory -%}
+作业管理
+{%- endblock %}
+
+{% block page_head -%}
+作业列表
+{%- endblock %}
+
+{% block content %}
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  {% for c in courses %}
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="{{ c.course_name }}">
+        <h4 class="panel-title">
+          <a role="button" data-toggle="collapse" data-parent="#accordion" href="#" aria-expanded="true"
+            aria-controls="{{ c.course_name }}">
+            {{ c.course_name }}
+          </a>
+        </h4>
+      </div>
+      <div id="{{ c.course_name }}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="{{ c.course_name }}">
+        <div class="panel-body">
+          {% for cl in c.classes %}
+          <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="{{ cl.class_id }}">
+              <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#"
+                  aria-expanded="true" aria-controls="{{ cl.class_id }}">
+                  {{ cl.name }}
+                </a>
+              </h4>
+            </div>
+            <div id="{{ cl.class_id }}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="{{ cl.class_id }}">
+              <div class="panel-body">
+                {% for h in cl.hws %}
+                <table class="table table-striped" data-effect="fade">
+                  <tbody>
+                    <tr data-hw="{{ h.hw_id }}">
+                      <td><a href="{{ url_for('hw_detail', hw_id=h.hw_id) }}">{{ h.name }}</a></td>
+                      <td>{{ h.ddl }}</td>
+                      <td>
+                        
+                        <button class="btn btn-danger btn-xs delete-hw-btn">删除</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+   
+  {% endfor %}
+
+  {% endblock %}
+
+  {% block base %}
+  <script src="{{ static('js/hw_list.js') }}"> </script>
+  {% endblock %}

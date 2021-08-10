@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% from "_macros.html" import static %}
+
+{% block title -%}
+    题目评论
+{%- endblock %}
+
+{% block head %}
+   
+{% endblock %}
+
+{% block categaory -%}
+    评论区
+{%- endblock %}
+
+{% block page_head -%} 
+    评论区
+{%- endblock %}
+
+{% block content %}
+<div class="comment-group">
+    <h5>评论列表</h5>
+    <ul class="comment-list-group">
+        {% for comment in comments %}
+            <li>
+                <div class="comment-content">
+                    <p class="author-info">
+                        <span>{{ comment.author.realname }}</span>
+                        <span>{{ comment.create_time }}</span>
+                    </p>
+                    <p class="comment-txt">
+                        {{ comment.content|safe }}
+                    </p>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+<div class="add-comment-group">
+    <h5>发表评论</h5>
+    <script id="editor" type="text/plain" style="height:100px;"></script>
+    <input type="hidden" name="prob_id" value="{{ prob_id }}" >
+    <div class="comment-btn-group">
+        <button class="btn btn-primary" id="comment-btn">发表评论</button>
+    </div>
+</div>
+</div>
+{% endblock %}
+
+
+{% block base %}
+<script src="{{ static('ueditor/ueditor.config.js') }}"></script>
+<script src="{{ static('ueditor/ueditor.all.min.js') }}"></script>
+<script src="{{ static('js/comment.js') }}"></script>
+{% endblock %}

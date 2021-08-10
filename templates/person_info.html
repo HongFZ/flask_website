@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title -%}
+    个人基本信息
+{%- endblock %}
+
+{% block categaory -%}
+    个人设置
+{%- endblock %}
+
+{% block page_head -%} 
+    个人信息
+{%- endblock %}
+
+{% block content %} 
+<table class="table table-striped" data-effect="fade">
+    <tbody>
+      <tr>
+        <td>用户名</td>
+        <td>{{ g.user.username }}</td>
+      </tr>
+      <tr>
+        <td>邮箱</td>
+        <td><a href="{{ url_for('resetemail') }}">{{ g.user.email }}</a></td>
+      </tr>
+      <tr>
+        <td>用户ID</td>
+        <td>{{ g.user.id }}</td>
+      </tr>
+      <tr>
+        <td>密码</td>
+        <td><a href="{{ url_for('resetpwd') }}">修改密码</a></td>
+      </tr>
+    </tbody>
+  </table>
+{% endblock %}

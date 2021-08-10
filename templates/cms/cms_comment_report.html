@@ -1,0 +1,40 @@
+{% extends 'cms/cms_base.html' %}
+
+{% block title %}
+    举报详情
+{% endblock %}
+
+{% block head %}
+<script src="{{ static('cms/js/comment.js') }}"></script>
+{% endblock %}
+
+{% block page_title %}
+    {{ self.title() }}
+{% endblock %}
+
+{% block main_content %}
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>举报评论</th>
+                <th>举报原因</th>
+                <th>评论作者</th>
+                <th>举报时间</th>
+                <th>举报人</th> 
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for report in reports %}
+                <tr data-id="{{ report.id }}">
+                    <td>{{ report.comment.content }}</td>
+                    <td>{{ report.desc }}</td>
+                    <td><a href="{{ url_for('cms.detail_users',user_id=report.comment.author.id) }}">{{ report.comment.author.realname }}</a></td>
+                    <td>{{ report.create_time }}</td>
+                    <td><a href="{{ url_for('cms.detail_users',user_id=report.reporter_id) }}">{{ report.reporter.realname }}</a></td>
+                    <td><button class="btn btn-danger btn-xs delete-report">移除</button></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'cms/cms_base.html' %}
+
+{% block title %}
+    评论详情
+{% endblock %}
+
+{% block head %}
+    <script src="{{ static('cms/js/comment.js') }}"></script>
+{% endblock %}
+
+{% block page_title %}
+    {{ self.title() }}
+{% endblock %}
+
+{% block main_content %}
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <td>用户名：</td>
+                <td><a href="{{ url_for('cms.detail_users',user_id=comment.author.id) }}">{{ comment.author.realname }}</a></td>
+            </tr>
+            <tr>
+                <td>题目：</td>
+                <td>{{ comment.prob.title }}</td>
+            </tr>
+            <tr>
+                <td>评论全文：</td>
+                <td>{{ comment.content }}</td>
+            </tr>
+            <tr>
+                <td>评论时间：</td>
+                <td>{{ comment.create_time }}</td>
+            </tr>
+            <tr>
+                <td><a href="{{ url_for('cms.comment_report',com_id=comment.com_id) }}">举报详情:</a></td>
+                <td>
+                {% for r in comment.report %}
+                    {{ r.desc }}
+                    {% if not loop.last %}/{% endif %}
+                {% endfor %}</td>
+            </tr>
+            <tr data-id="{{ comment.com_id }}">
+                <td>操作：</td>
+                <td><button class="btn btn-danger btn-xs delete-comment">移除</button></td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}

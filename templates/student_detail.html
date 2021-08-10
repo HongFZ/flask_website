@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% from "_macros.html" import static %}
+{% block title -%}
+    班级管理
+{%- endblock %}
+
+{% block head -%}
+<!-- Echarts File -->
+<script src="{{ static('lib/echarts//echarts.min.js') }}"></script>
+{%- endblock %}
+
+{% block categaory -%}
+    学生管理
+{%- endblock %}
+
+{% block page_head -%} 
+    学生表现
+{%- endblock %}
+
+{% block content %} 
+<table class="table table-bordered" data-effect="fade">
+    <thead>
+        <tr>
+            <th>学生姓名</th>
+            <th>学院</th>
+            <th>学号</th>
+            <th>联系方式</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>{{ student.realname }}</td>
+          <td>信息管理与工程学院</td>
+          <td>{{ student.code }}</td>
+          <td>{{ student.telephone }}</td>
+        </tr>
+    </tbody>
+</table>
+<input type="hidden" name="stu_id" value="{{ student.id }}">
+<div class="divider"></div>
+<div id="calendar" style="height: 300px; width: 1200px;"></div>
+<div id="score" style="height: 400px; width: 550px;"></div>
+<div class="divider"></div>
+<div id="radar" style="height: 400px; width: 600px;"></div>
+
+{% endblock %}
+
+{% block base %}
+<script src="{{ static('js/student.js') }}"> </script>
+{% endblock %}

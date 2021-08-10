@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% from "_macros.html" import static %}
+
+{% block title -%}
+    公共题库
+{%- endblock %}
+
+{% block head %}
+    
+{% endblock %}
+
+{% block categaory -%}
+    题库管理
+{%- endblock %}
+
+{% block page_head -%} 
+    公共题库
+{%- endblock %}
+
+{% block content %}
+<ul id="jetmenu" class="jetmenu blue">
+  {% if current_sort == 1 %}
+      <li class="active"><a href="/">全部</a></li>
+  {% else %}
+      <li><a href="{{ url_for('problem_list') }}">全部</a></li>
+  {% endif %}
+  {% if current_sort == 2 %}
+      <li class="active"><a href="{{ url_for('problem_list',st=1) }}">热门题目</a></li>
+  {% else %}
+      <li><a href="{{ url_for('problem_list',st=1) }}">热门题目</a></li>
+  {% endif %}
+  {% if current_sort == 3 %}
+      <li class="active"><a href="{{ url_for('problem_list',st=2) }}">收藏最多</a></li>
+  {% else %}
+      <li><a href="{{ url_for('problem_list',st=2) }}">收藏最多</a></li>
+  {% endif %}
+  {% if current_sort == 4 %}
+      <li class="active"><a href="{{ url_for('problem_list',st=3) }}">评论最多</a></li>
+  {% else %}
+      <li><a href="{{ url_for('problem_list',st=3) }}">评论最多</a></li>
+  {% endif %}
+</ul>
+
+<table class="table table-striped" data-effect="fade">
+  <thead>
+    <tr>
+      <td>题目ID</td>
+      <td>题目名称</td>
+      <td>创建时间</td>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in problems %}
+    <tr>
+      <td><a href="{{ url_for('post_detail', prob_id=p.prob_id)}}">{{ p.prob_id }}</a></td>
+      <td>{{ p.title }}</td>
+      <td>{{ p.create_time }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<div style="text-align:center;">
+  {{ pagination.links }}
+</div>
+{% endblock %}
+
+
+{% block base %}
+{% endblock %}

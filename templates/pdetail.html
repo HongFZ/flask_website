@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% from "_macros.html" import static %}
+
+{% block title %}
+    题目详情
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ static('css/front_pdetail.css') }}">
+{% endblock %}
+
+
+{% block categaory -%}
+    题库管理
+{%- endblock %}
+
+{% block page_head -%} 
+    题目详情
+{%- endblock %}
+
+{% block content %}
+    <div class="top-box">
+        {% if is_creater %}
+            {% if count %}
+            <button class="btn btn-warning" id="dcollect-button">取消收藏</button>
+            {% else %}
+            <button class="btn btn-default" id="collect-button">收藏题目</button>
+            {% endif %}
+        {% endif %}
+    </div>
+    <div class="lg-container">
+        <div class="post-container">
+            <h2>{{ problem.title }}</h2>
+            <p class="post-info-group">
+                <span>创建时间：{{ problem.create_time }}</span>
+                <span>评论数：0</span>
+            </p>
+            <article class="post-content" id="post-content" data-id="{{ problem.id }}">
+                {{ problem.content|safe }}
+            </article>
+        </div>
+   
+    </div>
+    
+{% endblock %}
+
+{% block base %}
+<script>
+    $(document).ready(function(){
+        $("#collect-button").click(function(){
+            var prob_id = {{ problem.prob_id }};
+            $.ajax({
+                'url': '/collect_prob/',
+                'data': {
+                    'prob_id': prob_id,
+                },
+                'success':function(data){
+                    if (data['code'] == 200){
+                        zlalert.alertSuccessToast("收藏成功！");
+                        window.location.reload();
+                    }else{
+                        
+                        var message = data['message'];
+                        zlalert.alertInfo(message);
+                    }
+                }
+            });
+        });
+    });
+</script>
+<script>
+    $(document).ready(function(){
+        $("#dcollect-button").click(function(){
+            var prob_id = {{ problem.prob_id }};
+            $.ajax({
+                'url': '/dcollect_prob/',
+                'data': {
+                    'prob_id': prob_id,
+                },
+                'success':function(data){
+                    if (data['code'] == 200){
+                        zlalert.alertSuccessToast("取消收藏成功！");
+                        window.location.reload();
+                    }else{
+                        
+                        var message = data['message'];
+                        zlalert.alertInfo(message);
+                    }
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}
